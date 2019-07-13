@@ -1,0 +1,7 @@
+.slide-container{
+	width:80%;
+	height: 500px;
+	border: 1px solid grey;
+	margin: auto;
+	border-radius: 5px;
+}
