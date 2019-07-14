@@ -6,4 +6,13 @@
 	border-radius: 5px;
 	overflow: hidden;
 	position: relative;
+	padding: 10px;
+}
+
+.slide{
+	position: absolute;
+}
+
+.selectedSlide{
+	transform: translateX(0px);
 }
