@@ -4,12 +4,20 @@ import {Slide} from './slide';
 export class Slides extends React.Component{
 	
 	renderSlides(bills){
-		return [<Slide key="1"/>,<Slide key="2"/>]
+		/*
+		for(let i = 0;i < bills.length;i++){
+
+		}
+		*/
+		if(bills.length !== 0){
+			let slideComponents = [<Slide key="1" bill={bills[0]}/>]
+			return slideComponents;
+		}
 	}
 
 	render(){
 		console.log("inside slides ", this.props.billData);
-		let slides = this.renderSlides();
+		let slides = this.renderSlides(this.props.billData.bills);
 		return(
 			<div className="slide-container">
 				{slides}
