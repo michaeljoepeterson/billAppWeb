@@ -10,7 +10,7 @@ export class Slides extends React.Component{
 		}
 		*/
 		if(bills.length !== 0){
-			let slideComponents = [<Slide key="1" bill={bills[0]}/>]
+			let slideComponents = [<Slide key="0" bill={bills[0]} firstSlide={true}/>,<Slide key="1" bill={bills[1]}/>];
 			return slideComponents;
 		}
 	}

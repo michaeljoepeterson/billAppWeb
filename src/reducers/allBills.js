@@ -22,7 +22,7 @@ export default function reducer(state = initialState,action){
 	}
 
 	else if(action.type === GET_BILLS_SUCCESS){
-		console.log("state: ",state,action)
+		//console.log("state: ",state,action)
 		return Object.assign({},state,{
 			loading:null,
 			error:null,

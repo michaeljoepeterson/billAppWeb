@@ -6,6 +6,6 @@ import billReducer from './reducers/allBills';
 export default createStore(
 	combineReducers({
 		form:formReducer,
-		bills:billReducer
+		bills:billReducer	
 	}),applyMiddleware(thunk)
 );

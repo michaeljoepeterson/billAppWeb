@@ -13,8 +13,9 @@ export class Slide extends React.Component{
 	}
 	render(){
 		console.log("inside slide ", this.props.bill);
+		let firstSlide = this.props.firstSlide ? "active-slide" : "";
 		return(
-			<div className="slide">
+			<div className={"slide " + firstSlide}>
 				<p>Bill Number: {this.props.bill.bill_number}</p>
 				<p>Session: {this.props.bill.session}</p>
 				<p>Status: {this.statusMap[this.props.bill.status]}</p>

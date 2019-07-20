@@ -29,7 +29,7 @@ export const getBills = (limit) => (dispatch, getState) => {
 			return res.json()
 		})
 		.then(billData => {
-			console.log(billData);
+			//console.log(billData);
 			dispatch(get_bills_success(billData));
 		})
 
