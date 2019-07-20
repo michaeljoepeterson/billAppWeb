@@ -1,6 +1,7 @@
 import React from 'react';
 
 export class Slide extends React.Component{
+
 	constructor(props){
 		super(props);
 		this.statusMap = {
@@ -11,11 +12,20 @@ export class Slide extends React.Component{
 	        'SenateAt3rdReading': 'Third reading (Senate)',
 		}
 	}
+
 	render(){
 		console.log("inside slide ", this.props.bill);
 		let firstSlide = this.props.firstSlide ? "active-slide" : "";
+		let transformStyle = {};
+		if(firstSlide === ""){
+			transformStyle = {
+				transform:'translateX(' + this.props.slideWidth + 'px)'
+			};
+
+		}
+
 		return(
-			<div className={"slide " + firstSlide}>
+			<div className={"slide " + firstSlide} style={transformStyle}>
 				<p>Bill Number: {this.props.bill.bill_number}</p>
 				<p>Session: {this.props.bill.session}</p>
 				<p>Status: {this.statusMap[this.props.bill.status]}</p>

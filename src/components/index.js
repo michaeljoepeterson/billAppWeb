@@ -17,7 +17,7 @@ export class App extends React.Component{
 	    this.props.dispatch(getBills(10));
 	    this.getSlideWidth();
 	    this.setState();
-	    console.log(this.slideWidth);
+	    //console.log(this.slideWidth);
 	}
 	//will need to do something like this to render buttons outside of box and still interact with box
 	buttonClicked(event){
