@@ -11,7 +11,7 @@ export class Slides extends React.Component{
 				if(i === 0){
 					isFirstSlide = true;
 				}
-				slideComponents.push(<Slide key={i} bill={bills[i]} slideWidth={this.props.slideWidth} firstSlide={isFirstSlide}/>)
+				slideComponents.push(<Slide key={i} bill={bills[i]} slideWidth={this.props.slideWidth} firstSlide={isFirstSlide}/>);
 			}
 
 			return slideComponents;

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 import {getBills} from "../actions/allBillActions";
 import Slideshow from './slideshow';
-import arrow from '../assets/arrow.png';
+import Arrow from './arrow';
 import Loader from './loader';
 
 export class App extends React.Component{
@@ -45,7 +45,9 @@ export class App extends React.Component{
 			<div>
 				{loader}
 				{this.props.billData.bills.length}
+				<Arrow />
 				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition}/>
+				<Arrow />
 				<button onClick={(e)=>this.buttonClicked(e)}>test</button>
 			</div>
 		);

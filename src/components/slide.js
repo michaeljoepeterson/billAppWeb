@@ -21,7 +21,6 @@ export class Slide extends React.Component{
 			transformStyle = {
 				transform:'translateX(' + this.props.slideWidth + 'px)'
 			};
-
 		}
 
 		return(
