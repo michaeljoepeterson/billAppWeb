@@ -12,23 +12,40 @@ export class App extends React.Component{
 		super(props);
 		this.slideId = "test-slideshow";
 		this.slideTransition = 500;
+		this.state = {
+			slideHeight:""
+		};
 	}
 	componentDidMount(){
 	    this.props.dispatch(getBills(10));
-	    this.getSlideWidth();
+	    this.getSlideHeight();
 	    this.setState();
-	    //console.log(this.slideWidth);
 	}
 	//will need to do something like this to render buttons outside of box and still interact with box
-	buttonClicked(event){
-		let slideshow = document.getElementById(this.slideId);
-		console.dir(this.props);
-		console.log(slideshow.clientWidth);
+	buttonClicked(event,slideId){
+		let slideshow = document.getElementById(slideId);
+		console.log(this.slideId,slideId);
+		console.log(slideshow);
 	}
 
-	getSlideWidth(){
+	rightArrow(event,slideId){
+		let slideshow = document.getElementById(slideId);
+		console.log("right clicked",slideId);
+		console.log(slideshow);
+	}
+
+	leftArrow(event,slideId){
+		let slideshow = document.getElementById(slideId);
+		console.log("left clicked",slideId);
+		console.log(slideshow);
+	}
+
+	getSlideHeight(){
 		let slideshow = document.getElementById(this.slideId);
-		this.slideWidth = slideshow.clientWidth + "px";
+		let slideHeight = slideshow.clientHeight / 2 + "px";
+		this.setState({
+			slideHeight:slideHeight
+		});
 	}
 
 	render(){
@@ -45,9 +62,9 @@ export class App extends React.Component{
 			<div>
 				{loader}
 				{this.props.billData.bills.length}
-				<Arrow />
+				<Arrow slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow}/>
 				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition}/>
-				<Arrow />
+				<Arrow right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow}/>
 				<button onClick={(e)=>this.buttonClicked(e)}>test</button>
 			</div>
 		);

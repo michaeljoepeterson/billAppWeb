@@ -1,3 +1,15 @@
 .arrow{
 	width: 7%;
+	position: absolute;
+}
+
+.arrowRight{
+	right: 0;
+	transform: rotate(180deg);
+}
+
+@media (min-width: 1000px){
+	.arrow{
+		width: 5%;
+	}
 }

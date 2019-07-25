@@ -14,7 +14,7 @@ export class Slide extends React.Component{
 	}
 
 	render(){
-		console.log("inside slide ", this.props.bill);
+		//console.log("inside slide ", this.props.bill);
 		let firstSlide = this.props.firstSlide ? "active-slide" : "";
 		let transformStyle = {};
 		if(firstSlide === ""){
