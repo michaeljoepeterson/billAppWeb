@@ -19,7 +19,7 @@ export class Slides extends React.Component{
 	}
 
 	render(){
-		console.log("inside slides ", this.props.billData,this.props.slideWidth);
+		//console.log("inside slides ", this.props.billData,this.props.slideWidth);
 		let slides = this.renderSlides(this.props.billData.bills);
 		return(
 			<div className="slide-container">

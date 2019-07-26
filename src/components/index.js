@@ -12,6 +12,7 @@ export class App extends React.Component{
 		super(props);
 		this.slideId = "test-slideshow";
 		this.slideTransition = 500;
+		this.arrowMargin = '';
 		this.state = {
 			slideHeight:""
 		};
@@ -19,6 +20,7 @@ export class App extends React.Component{
 	componentDidMount(){
 	    this.props.dispatch(getBills(10));
 	    this.getSlideHeight();
+	    this.getSlideMargin();
 	    this.setState();
 	}
 	//will need to do something like this to render buttons outside of box and still interact with box
@@ -48,12 +50,29 @@ export class App extends React.Component{
 		});
 	}
 
+	getSlideMargin(){
+		let slideshow = document.getElementById(this.slideId);
+		let style = window.getComputedStyle(slideshow)
+		let marginRight = parseInt(style.marginRight.replace('px',''));
+		console.log(style.marginRight);
+		//margin left and right the same
+		this.arrowMargin = this.calcArrowMargin(marginRight) + 'px';
+
+	}
+
+	calcArrowMargin(margin){
+		let arrow = document.getElementById('rightArrow');
+		let arrowWidth = arrow.clientWidth;
+		let adjustedPostiion = Math.abs(margin - arrowWidth) / 2;
+		return adjustedPostiion;
+	}
+
+	arrowReposition(){
+		
+	}
+
 	render(){
 		let loader;
-		//react way wont work since calls to api will be called on resize
-		//can use the initial width from here on first render
-		//will need to adjust transform on resze with js on the existing slides
-		//need to use initial width so that if a rerender occrurs slides will be in correct place
 
 		if(this.props.billData.loading){
 			loader = <Loader/>;
@@ -62,9 +81,9 @@ export class App extends React.Component{
 			<div>
 				{loader}
 				{this.props.billData.bills.length}
-				<Arrow slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow}/>
+				<Arrow margin={this.arrowMargin} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow}/>
 				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition}/>
-				<Arrow right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow}/>
+				<Arrow margin={this.arrowMargin} right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow}/>
 				<button onClick={(e)=>this.buttonClicked(e)}>test</button>
 			</div>
 		);

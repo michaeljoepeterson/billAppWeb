@@ -7,13 +7,21 @@ import "../styles/arrow.css";
 export default class Arrow extends React.Component{
 
 	render(){
+		console.log('arrow margin: ',this.props.margin)
 		let arrowStyle = {
 			top:this.props.slideHeight
 		};
 		let rightClass = this.props.right ? 'arrowRight' : '';
+		let arrowId = this.props.right ? 'rightArrow' : 'leftArrow';
+		if(rightClass !== ''){
+			arrowStyle.right = this.props.margin;
+		}
+		else{
+			arrowStyle.left = this.props.margin;
+		}
 		return(
 			<div>
-				<img style={arrowStyle} className={"arrow " + rightClass} onClick={(e) => this.props.arrowClicked(e,this.props.slideId)} src={arrow} alt='arrow button'/>
+				<img id={arrowId} style={arrowStyle} className={"arrow " + rightClass} onClick={(e) => this.props.arrowClicked(e,this.props.slideId)} src={arrow} alt='arrow button'/>
 			</div>
 		);
 	}
