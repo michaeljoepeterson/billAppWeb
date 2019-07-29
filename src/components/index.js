@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 import {getBills} from "../actions/allBillActions";
 import Slideshow from './slideshow';
+import SlideTransition from './slideTransition';
 import Arrow from './arrow';
 import Loader from './loader';
 
@@ -13,14 +14,17 @@ export class App extends React.Component{
 		this.slideId = "test-slideshow";
 		this.slideTransition = 500;
 		this.arrowMargin = '';
+		this.slideHandler = null;
 		this.state = {
-			slideHeight:""
+			slideHeight:"",
+			slideWidth:''
 		};
 	}
 	componentDidMount(){
 	    this.props.dispatch(getBills(10));
 	    this.getSlideHeight();
 	    this.getSlideMargin();
+	    this.setSlideHandler();
 	    this.setState();
 	}
 	//will need to do something like this to render buttons outside of box and still interact with box
@@ -28,6 +32,10 @@ export class App extends React.Component{
 		let slideshow = document.getElementById(slideId);
 		console.log(this.slideId,slideId);
 		console.log(slideshow);
+	}
+
+	setSlideHandler(){
+		this.slideHandler = new SlideTransition(this.state.slideWidth,'slide');
 	}
 
 	rightArrow(event,slideId){
@@ -50,6 +58,14 @@ export class App extends React.Component{
 		});
 	}
 
+	getSlideWidth(){
+		let slideshow = document.getElementById(this.slideId);
+		let slideWidth = slideshow.clientWidth;
+		this.setState({
+			slideWidth:slideWidth
+		});
+	}
+
 	getSlideMargin(){
 		let slideshow = document.getElementById(this.slideId);
 		let style = window.getComputedStyle(slideshow)
@@ -57,7 +73,6 @@ export class App extends React.Component{
 		console.log(style.marginRight);
 		//margin left and right the same
 		this.arrowMargin = this.calcArrowMargin(marginRight) + 'px';
-
 	}
 
 	calcArrowMargin(margin){
