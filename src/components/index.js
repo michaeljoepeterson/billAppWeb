@@ -68,12 +68,16 @@ export class App extends React.Component{
 	}
 
 	arrowReposition(){
-		
+		let rightArrow = document.getElementById('rightArrow');
+		let leftArrow = document.getElementById('leftArrow');
+		this.getSlideMargin();
+		rightArrow.style.right = this.arrowMargin;
+		leftArrow.style.left = this.arrowMargin;
 	}
 
 	render(){
 		let loader;
-
+		window.addEventListener("resize", this.arrowReposition.bind(this));
 		if(this.props.billData.loading){
 			loader = <Loader/>;
 		}
