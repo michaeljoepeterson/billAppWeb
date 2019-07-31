@@ -40,15 +40,16 @@ export class App extends React.Component{
 
 	rightArrow(event,slideId){
 		let slideshow = document.getElementById(slideId);
-		console.log("right clicked",slideId);
+		//console.log("right clicked",slideId);
 		//console.log(slideshow);
 		this.slideHandler.transitionRight();
 	}
 
 	leftArrow(event,slideId){
 		let slideshow = document.getElementById(slideId);
-		console.log("left clicked",slideId,this.slideHandler);
-		console.log(slideshow);
+		//console.log("left clicked",slideId,this.slideHandler);
+		//console.log(slideshow);
+		this.slideHandler.transitionLeft();
 	}
 
 	getSlideHeight(){

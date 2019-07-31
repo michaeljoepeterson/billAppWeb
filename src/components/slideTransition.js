@@ -25,6 +25,7 @@ export default class SlideTransition{
 	moveSlide(slide,width,transition){
 		let promise = new Promise((resolve,reject) =>{
 			setTimeout(function(){
+				console.log(width);
 				slide.style.transform = 'translateX(' + width + ')'; 
 				resolve();
 			}.bind(this),transition);		
@@ -33,14 +34,36 @@ export default class SlideTransition{
 		return promise;
 	}
 
+	transitionLeft(){
+		if(this.activeSlide === 0){
+			return;
+		}
+		else{
+			const width = this.getWidth() + 'px';
+			//console.log(width,this.slides[this.activeSlide]);
+			return this.moveSlide(this.slides[this.activeSlide],width,0)
+
+			.then(()=>{
+				this.slides[this.activeSlide].classList.remove('active-slide');
+				this.activeSlide--;
+				this.slides[this.activeSlide].classList.add('active-slide');
+				console.log('moved left');
+				return this.moveSlide(this.slides[this.activeSlide],0,this.transitionTime)
+			})
+
+			.catch(err => {
+				console.log(err);
+			})
+		}
+	}
+
 	transitionRight(){
 		if(this.activeSlide === this.slides.length - 1){
 			return;
 		}
 		else{
-			const widthLeft = this.getWidth() * -1 + 'px';
-			//console.log(width);
-			return this.moveSlide(this.slides[this.activeSlide],widthLeft,0)
+			const width = this.getWidth() * -1 + 'px';
+			return this.moveSlide(this.slides[this.activeSlide],width,0)
 
 			.then(()=>{
 				this.slides[this.activeSlide].classList.remove('active-slide');
