@@ -22,7 +22,13 @@ export default class Slideshow extends React.Component{
 		for(let i = 0;i < slides.length;i++){
 			if(!slides[i].classList.contains('active-slide')){
 				slides[i].style.transition = 'none';
-				slides[i].style.transform = 'translateX(' + slideWidth + 'px)';
+				let currentWidth = slides[i].style.transform.replace('translateX(',"").replace('px)','');
+				if(currentWidth < 0){
+					slides[i].style.transform = 'translateX(' + -1 *slideWidth + 'px)';
+				}
+				else{
+					slides[i].style.transform = 'translateX(' + slideWidth + 'px)';
+				}
 				setTimeout(function(){
 					slides[i].style.transition = normalTransition;
 				},this.props.slideTransition - 100);
