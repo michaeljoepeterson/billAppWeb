@@ -72,7 +72,7 @@ export class App extends React.Component{
 		let slideshow = document.getElementById(this.slideId);
 		let style = window.getComputedStyle(slideshow)
 		let marginRight = parseInt(style.marginRight.replace('px',''));
-		console.log(style.marginRight);
+		//console.log(style.marginRight);
 		//margin left and right the same
 		this.arrowMargin = this.calcArrowMargin(marginRight) + 'px';
 	}

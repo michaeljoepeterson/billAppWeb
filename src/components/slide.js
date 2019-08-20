@@ -13,6 +13,11 @@ export class Slide extends React.Component{
 		}
 	}
 
+	vote(event){
+		event.preventDefault();
+		console.log('voted',event.currentTarget.value,this.props.bill);
+	}
+
 	render(){
 		//console.log("inside slide ", this.props.bill);
 		let firstSlide = this.props.firstSlide ? "active-slide" : "";
@@ -35,8 +40,8 @@ export class Slide extends React.Component{
 				<div>
 					<input type="text"/>
 				</div>
-				<button>Yes</button>
-				<button>No</button>
+				<button value='yes' onClick={(e) => this.vote(e)}>Yes</button>
+				<button value='no' onClick={(e) => this.vote(e)}>No</button>
 			</div>
 		)
 	}

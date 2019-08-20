@@ -7,7 +7,7 @@ import "../styles/arrow.css";
 export default class Arrow extends React.Component{
 
 	render(){
-		console.log('arrow margin: ',this.props.margin)
+		console.log('arrow margin: ',this.props.margin);
 		let arrowStyle = {
 			top:this.props.slideHeight
 		};
