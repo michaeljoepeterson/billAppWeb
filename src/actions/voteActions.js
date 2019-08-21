@@ -44,10 +44,10 @@ export const voteError = (error) => ({
 export const castVote = (legId,vote,email) => (dispatch) => {
 	dispatch(voteRequest());
 	return(
-		fetch(`${API_BASE_URL}/api/vote?legid=${legId}`,{
+		fetch(`${API_BASE_URL}/vote?legid=${legId}`,{
 			method:'POST',
 			headers:{
-				'Contnet-Type':'application/json'
+				'Content-Type':'application/json'
 			},
 			body:JSON.stringify({
 				vote,
