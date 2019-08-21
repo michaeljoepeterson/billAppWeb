@@ -95,7 +95,8 @@ export class App extends React.Component{
 	render(){
 		let loader;
 		window.addEventListener("resize", this.arrowReposition.bind(this));
-		if(this.props.billData.loading){
+		console.log(this.props.voteData);
+		if(this.props.billData.loading || this.props.voteData.loading){
 			loader = <Loader/>;
 		}
 		return(
@@ -113,7 +114,8 @@ export class App extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    billData: state.bills
+    billData: state.bills,
+    voteData: state.votes
 });
 
 export default connect(mapStateToProps)(App);

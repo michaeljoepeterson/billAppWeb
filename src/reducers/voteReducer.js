@@ -1,7 +1,11 @@
 import{
 	GET_VOTES_REQUEST,
 	GET_VOTES_SUCCESS,
-	GET_VOTES_ERROR
+	GET_VOTES_ERROR,
+	VOTE_REQUEST,
+	VOTE_SUCCESS,
+	VOTE_ERROR
+
 } from '../actions/voteActions';
 
 const initialState  = {
@@ -9,7 +13,7 @@ const initialState  = {
 	error:null,
 	message:null,
 	limit:20,
-	votes:[]
+	voteResult:null
 };
 
 export default function reducer(state = initialState,action){
@@ -37,6 +41,30 @@ export default function reducer(state = initialState,action){
 			error:null,
 			message:"error getting votes",
 			error:action.voteError
+		});
+	}
+
+	else if(action.type === VOTE_REQUEST){
+		return Object.assign({},state,{
+			loading:true,
+			error:null,
+			message:null
+		});
+	}
+
+	else if(action.type === VOTE_SUCCESS){
+		return Object.assign({},state,{
+			loading:null,
+			message:'successful vote',
+			voteResult:action.results
+		});
+	}
+
+	else if(action.type === VOTE_ERROR){
+		return Object.assign({},state,{
+			loading:null,
+			message:'error',
+			voteResult:action.error
 		});
 	}
 
