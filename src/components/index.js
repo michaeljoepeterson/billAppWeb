@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 import {getBills} from "../actions/allBillActions";
+import {bulkGetVotes} from "../actions/voteActions";
 import Slideshow from './slideshow';
 import SlideTransition from './slideTransition';
 import Arrow from './arrow';
@@ -26,6 +27,7 @@ export class App extends React.Component{
 	    this.getSlideMargin();
 	    this.setSlideHandler();
 	    this.setState();
+	    
 	}
 	//will need to do something like this to render buttons outside of box and still interact with box
 	buttonClicked(event,slideId){
@@ -99,6 +101,11 @@ export class App extends React.Component{
 		if(this.props.billData.loading || this.props.voteData.loading){
 			loader = <Loader/>;
 		}
+		console.log('test',this.props.billData.bills.length,this.props.voteData);
+	    if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult === null){
+
+	    	this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    }
 		return(
 			<div>
 				{loader}

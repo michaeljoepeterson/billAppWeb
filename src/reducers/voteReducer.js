@@ -31,7 +31,7 @@ export default function reducer(state = initialState,action){
 			loading:null,
 			error:null,
 			message:"success",
-			VOTES:action.voteData.data
+			voteResult:action.voteData.data
 		});
 	}
 

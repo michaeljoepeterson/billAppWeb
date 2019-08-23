@@ -1,5 +1,5 @@
 import {API_BASE_URL} from '../config';
-import {normalizeResponseErrors} from './util';
+import {normalizeResponseErrors,getVotes} from './util';
 
 export const GET_VOTES_REQUEST = "GET_VOTES_REQUEST";
 
@@ -40,6 +40,22 @@ export const voteError = (error) => ({
 	type: VOTE_ERROR,
 	error
 });
+
+export const bulkGetVotes = (bills) => (dispatch) => {
+	console.log('bulk getting votes: ');
+	dispatch(get_votes_request());
+
+	return getVotes(bills,0,API_BASE_URL,[])
+
+	.then(voteData => {
+		console.log('got data',voteData);
+		dispatch(get_votes_success(voteData));
+	})
+	.catch(err => {
+		dispatch(get_votes_error());
+		console.log('error after getting vote data: ',err);
+	})
+}
 
 export const castVote = (legId,vote,email) => (dispatch) => {
 	dispatch(voteRequest());
