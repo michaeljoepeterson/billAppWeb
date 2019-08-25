@@ -48,7 +48,7 @@ export default class Slideshow extends React.Component{
 		
 		return(
 			<div className="slideshow-container" id={this.props.slideId}>
-				<Slides billData={this.props.billData} slideWidth={this.slideWidth}/>
+				<Slides billData={this.props.billData} slideWidth={this.slideWidth} voteData={this.props.voteData}/>
 			</div>
 		)
 	}

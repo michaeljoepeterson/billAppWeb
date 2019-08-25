@@ -41,7 +41,7 @@ export class Slide extends React.Component{
 	}
 
 	render(){
-		//console.log("inside slide ", this.props.bill);
+		console.log("inside slide ===========", this.props.bill,this.props.vote);
 		let firstSlide = this.props.firstSlide ? "active-slide" : "";
 		let transformStyle = {};
 		if(firstSlide === ""){
@@ -64,6 +64,10 @@ export class Slide extends React.Component{
 				</div>
 				<button value='yes' onClick={(e) => this.vote(e)}>Yes</button>
 				<button value='no' onClick={(e) => this.vote(e)}>No</button>
+				<p>Results: {this.props.vote.total} total votes</p>
+				<p>Yes: {this.props.vote.yes}</p>
+				<p>No: {this.props.vote.total - this.props.vote.yes}</p>
+
 			</div>
 		)
 	}

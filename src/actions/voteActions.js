@@ -42,7 +42,7 @@ export const voteError = (error) => ({
 });
 
 export const bulkGetVotes = (bills) => (dispatch) => {
-	console.log('bulk getting votes: ');
+	//console.log('bulk getting votes: ');
 	dispatch(get_votes_request());
 
 	return getVotes(bills,0,API_BASE_URL,[])
@@ -52,7 +52,7 @@ export const bulkGetVotes = (bills) => (dispatch) => {
 		dispatch(get_votes_success(voteData));
 	})
 	.catch(err => {
-		dispatch(get_votes_error());
+		dispatch(get_votes_error(err));
 		console.log('error after getting vote data: ',err);
 	})
 }

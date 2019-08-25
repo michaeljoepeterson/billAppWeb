@@ -97,21 +97,39 @@ export class App extends React.Component{
 	render(){
 		let loader;
 		window.addEventListener("resize", this.arrowReposition.bind(this));
-		console.log(this.props.voteData);
+		console.log('bill data ',this.props.billData);
 		if(this.props.billData.loading || this.props.voteData.loading){
 			loader = <Loader/>;
 		}
-		console.log('test',this.props.billData.bills.length,this.props.voteData);
-	    if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult === null){
-
+		console.log('vote data ',this.props.voteData);
+	    if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult === null && !this.props.voteData.error){
+	    	console.log('==========dispatching get votes');
 	    	this.props.dispatch(bulkGetVotes(this.props.billData.bills));
 	    }
+	    else if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult !== null && !this.props.voteData.error){
+	    	try{
+	    		if(this.props.voteData.voteResult.message === 'Voted'){
+	    			console.log('==========dispatching get votes after voting');
+	    			this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    		}
+	    	}
+	    	catch(err){
+	    		console.log('error at getting votes after vote',err);
+	    	}
+	    	
+	    }
+	    /*
+	    else if(this.props.voteData.message !== 'successful vote' && !this.props.voteData.loading && this.props.voteData.voteResult === null && !this.props.voteData.error){
+	    	console.log('==========dispatching get votes after vote');
+	    	this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    }
+	    */
 		return(
 			<div>
 				{loader}
 				{this.props.billData.bills.length}
 				<Arrow margin={this.arrowMargin} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow.bind(this)}/>
-				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition}/>
+				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition} voteData={this.props.voteData}/>
 				<Arrow margin={this.arrowMargin} right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow.bind(this)}/>
 				<button onClick={(e)=>this.buttonClicked(e)}>test</button>
 			</div>

@@ -31,7 +31,7 @@ export default function reducer(state = initialState,action){
 			loading:null,
 			error:null,
 			message:"success",
-			voteResult:action.voteData.data
+			voteResult:action.voteData
 		});
 	}
 
@@ -48,7 +48,9 @@ export default function reducer(state = initialState,action){
 		return Object.assign({},state,{
 			loading:true,
 			error:null,
-			message:null
+			message:null,
+			error:null,
+			voteResult:null
 		});
 	}
 
@@ -64,7 +66,7 @@ export default function reducer(state = initialState,action){
 		return Object.assign({},state,{
 			loading:null,
 			message:'error',
-			voteResult:action.error
+			error:action.error
 		});
 	}
 

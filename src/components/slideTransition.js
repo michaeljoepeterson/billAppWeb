@@ -5,8 +5,8 @@ export default class SlideTransition{
 		this.slideshow = document.getElementById(slideId);
 		this.slides = document.getElementsByClassName(slideClass);
 		this.activeSlide = 0;
-		console.log(this.slides);
-		console.dir(this.slideshow);
+		//console.log(this.slides);
+		//console.dir(this.slideshow);
 	}
 
 	getWidth(){
