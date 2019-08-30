@@ -4,7 +4,7 @@ import {Route, withRouter} from 'react-router-dom';
 import {getBills} from "../actions/allBillActions";
 import {bulkGetVotes} from "../actions/voteActions";
 import Slideshow from './slideshow';
-import SlideTransition from './slideTransition';
+import SlideTransition from './assists/slideTransition';
 import Arrow from './arrow';
 import Loader from './loader';
 

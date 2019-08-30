@@ -19,7 +19,7 @@ export class Slides extends React.Component{
 	}
 
 	render(){
-		console.log("inside slides ", this.props.billData,this.props.slideWidth,this.props.voteData);
+		//console.log("inside slides ", this.props.billData,this.props.slideWidth,this.props.voteData);
 		let slides;
 		if(this.props.billData && this.props.voteData.voteResult){
 			try{

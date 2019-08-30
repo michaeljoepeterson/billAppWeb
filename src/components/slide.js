@@ -1,6 +1,9 @@
 import React from 'react';
 import {castVote} from'../actions/voteActions';
 import {connect} from 'react-redux';
+import "../styles/slide.css";
+import Validator from './assists/validator';
+import validator from 'validator';
 export class Slide extends React.Component{
 
 	constructor(props){
@@ -40,8 +43,19 @@ export class Slide extends React.Component{
 		this.props.dispatch(castVote(this.props.bill.legisinfo_id,voteOption,emailValue));
 	}
 
+	checkEmail(e){
+		let email = e.currentTarget.value
+		let error = e.currentTarget.parentElement.previousElementSibling;
+		if(!validator.isEmail(email)){
+			error.classList.remove('hide');
+		}
+		else{
+			error.classList.add('hide');
+		}
+	}
+
 	render(){
-		console.log("inside slide ===========", this.props.bill,this.props.vote);
+		//console.log("inside slide ===========", this.props.bill,this.props.vote);
 		let firstSlide = this.props.firstSlide ? "active-slide" : "";
 		let transformStyle = {};
 		if(firstSlide === ""){
@@ -59,8 +73,9 @@ export class Slide extends React.Component{
 				<p>Description: {this.props.bill.bill_description.en}</p>
 				<p>Do you support this bill?</p>
 				<p>Email:</p>
+				<p className="hide error">Invalid Email</p>
 				<div>
-					<input type="email"/>
+					<input onBlur={(e) => this.checkEmail(e)} className="emailInput" type="email"/>
 				</div>
 				<button value='yes' onClick={(e) => this.vote(e)}>Yes</button>
 				<button value='no' onClick={(e) => this.vote(e)}>No</button>
