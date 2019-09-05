@@ -5,6 +5,8 @@ export default class SlideTransition{
 		this.slideshow = document.getElementById(slideId);
 		this.slides = document.getElementsByClassName(slideClass);
 		this.activeSlide = 0;
+		this.isClickedRight = false;
+		this.isClickedLeft = false;
 		//console.log(this.slides);
 		//console.dir(this.slideshow);
 	}
@@ -25,7 +27,7 @@ export default class SlideTransition{
 	moveSlide(slide,width,transition){
 		let promise = new Promise((resolve,reject) =>{
 			setTimeout(function(){
-				console.log(width);
+				//console.log(width);
 				slide.style.transform = 'translateX(' + width + ')'; 
 				resolve();
 			}.bind(this),transition);		
@@ -35,11 +37,12 @@ export default class SlideTransition{
 	}
 
 	transitionLeft(){
-		if(this.activeSlide === 0){
+		if(this.activeSlide === 0 || this.isClickedLeft){
 			return;
 		}
 		else{
 			const width = this.getWidth() + 'px';
+			this.isClickedLeft = true;
 			//console.log(width,this.slides[this.activeSlide]);
 			return this.moveSlide(this.slides[this.activeSlide],width,0)
 
@@ -47,21 +50,27 @@ export default class SlideTransition{
 				this.slides[this.activeSlide].classList.remove('active-slide');
 				this.activeSlide--;
 				this.slides[this.activeSlide].classList.add('active-slide');
-				console.log('moved left');
+				//console.log('moved left');
 				return this.moveSlide(this.slides[this.activeSlide],0,this.transitionTime)
 			})
+			.then(()=>{
+				this.isClickedLeft = false;
+			})
+
 
 			.catch(err => {
+				this.isClickedLeft = false;
 				console.log(err);
 			})
 		}
 	}
 
 	transitionRight(){
-		if(this.activeSlide === this.slides.length - 1){
+		if(this.activeSlide === this.slides.length - 1 || this.isClickedRight){
 			return;
 		}
 		else{
+			this.isClickedRight = true;
 			const width = this.getWidth() * -1 + 'px';
 			return this.moveSlide(this.slides[this.activeSlide],width,0)
 
@@ -69,11 +78,17 @@ export default class SlideTransition{
 				this.slides[this.activeSlide].classList.remove('active-slide');
 				this.activeSlide++;
 				this.slides[this.activeSlide].classList.add('active-slide');
-				console.log('moved left');
+				//console.log('moved left');
+
 				return this.moveSlide(this.slides[this.activeSlide],0,this.transitionTime)
 			})
 
+			.then(()=>{
+				this.isClickedRight = false;
+			})
+
 			.catch(err => {
+				this.isClickedRight = false;
 				console.log(err);
 			})
 		}
