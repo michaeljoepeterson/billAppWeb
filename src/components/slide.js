@@ -34,23 +34,31 @@ export class Slide extends React.Component{
 	vote(event){
 		event.preventDefault();
 		let voteOption = event.currentTarget.value == 'yes'? 1 : 2;
-		let billChildren = document.getElementById(this.props.billId).children;
+		let billChildren = document.getElementById('bill' + this.props.billId).children;
 
 		let emailInput = this.getEmailInput(billChildren,'div');
 		let emailValue = emailInput.value;
-		console.log('voted',event.currentTarget.value,this.props.bill,this.props.billId);
-		console.log(emailValue);
-		this.props.dispatch(castVote(this.props.bill.legisinfo_id,voteOption,emailValue));
+		let isEmail = this.checkEmail(emailValue);
+		if(isEmail){
+			console.log('voted',event.currentTarget.value,this.props.bill,this.props.billId);
+			//dispatch bill id as well this will b the slide index
+			//then on render pass this value to the set slide method
+			this.props.dispatch(castVote(this.props.bill.legisinfo_id,voteOption,emailValue));
+		}	
 	}
 
-	checkEmail(e){
-		let email = e.currentTarget.value
-		let error = e.currentTarget.parentElement.previousElementSibling;
+	checkEmail(email,error){
 		if(!validator.isEmail(email)){
-			error.classList.remove('hide');
+			if(error){
+				error.classList.remove('hide');
+			}
+			return false;
 		}
 		else{
-			error.classList.add('hide');
+			if(error){
+				error.classList.add('hide');
+			}
+			return true;
 		}
 	}
 
@@ -65,7 +73,7 @@ export class Slide extends React.Component{
 		}
 
 		return(
-			<div className={"slide " + firstSlide} style={transformStyle} id={this.props.billId}>
+			<div className={"slide " + firstSlide} style={transformStyle} id={'bill' + this.props.billId}>
 				<p>Bill Number: {this.props.bill.bill_number}</p>
 				<p>Session: {this.props.bill.session}</p>
 				<p>Status: {this.statusMap[this.props.bill.status]}</p>
@@ -75,7 +83,7 @@ export class Slide extends React.Component{
 				<p>Email:</p>
 				<p className="hide error">Invalid Email</p>
 				<div>
-					<input onBlur={(e) => this.checkEmail(e)} className="emailInput" type="email"/>
+					<input onBlur={(e) => this.checkEmail(e.currentTarget.value, e.currentTarget.parentElement.previousElementSibling)} className="emailInput" type="email"/>
 				</div>
 				<button value='yes' onClick={(e) => this.vote(e)}>Yes</button>
 				<button value='no' onClick={(e) => this.vote(e)}>No</button>

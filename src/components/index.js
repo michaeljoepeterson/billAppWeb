@@ -29,14 +29,8 @@ export class App extends React.Component{
 	    this.setState();
 	    
 	}
-	//will need to do something like this to render buttons outside of box and still interact with box
-	buttonClicked(event,slideId){
-		let slideshow = document.getElementById(slideId);
-		console.log(this.slideHandler);
-		console.log(slideshow);
-	}
-
 	setSlideHandler(){
+		console.log('creating slide handler==========');
 		this.slideHandler = new SlideTransition(this.state.slideWidth,'slide',this.slideTransition,this.slideId);
 	}
 
@@ -95,6 +89,9 @@ export class App extends React.Component{
 	}
 
 	render(){
+		if(this.slideHandler){
+			this.slideHandler.setSlide(0);
+		}
 		let loader;
 		window.addEventListener("resize", this.arrowReposition.bind(this));
 		console.log('bill data ',this.props.billData);
@@ -127,11 +124,9 @@ export class App extends React.Component{
 		return(
 			<div>
 				{loader}
-				{this.props.billData.bills.length}
 				<Arrow margin={this.arrowMargin} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow.bind(this)}/>
 				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition} voteData={this.props.voteData}/>
 				<Arrow margin={this.arrowMargin} right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow.bind(this)}/>
-				<button onClick={(e)=>this.buttonClicked(e)}>test</button>
 			</div>
 		);
 		

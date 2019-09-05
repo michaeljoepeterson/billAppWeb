@@ -7,12 +7,16 @@ export default class SlideTransition{
 		this.activeSlide = 0;
 		this.isClickedRight = false;
 		this.isClickedLeft = false;
-		//console.log(this.slides);
+		console.log('============active-slide: ',this.activeSlide);
 		//console.dir(this.slideshow);
 	}
 
 	getWidth(){
 		return this.slideshow.offsetWidth;
+	}
+
+	setSlide(slide){
+		this.activeSlide = slide;
 	}
 
 	getActiveSlide(){
