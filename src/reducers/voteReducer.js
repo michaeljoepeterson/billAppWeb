@@ -63,6 +63,7 @@ export default function reducer(state = initialState,action){
 	}
 
 	else if(action.type === VOTE_ERROR){
+		console.log('reducer vote error: ',action.error);
 		return Object.assign({},state,{
 			loading:null,
 			message:'error',

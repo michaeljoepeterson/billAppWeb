@@ -70,8 +70,17 @@ export const castVote = (legId,vote,email) => (dispatch) => {
 				email
 			})
 		})
+		.then(
+			res => {
+				return normalizeResponseErrors(res)
+				
+			}
+		)
 		.then(res => res.json())
-		.then(data => dispatch(voteSuccess(data)))
+		.then(data => {
+			//console.log(data);
+			dispatch(voteSuccess(data))
+		})
 		.catch(err => {
 			dispatch(voteError(err));
 		})

@@ -99,13 +99,28 @@ export class App extends React.Component{
 			loader = <Loader/>;
 		}
 		console.log('vote data ',this.props.voteData);
-	    if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult === null && !this.props.voteData.error){
-	    	console.log('==========dispatching get votes');
-	    	this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult === null){
+	    	if(this.props.voteData.error){
+	    			if(this.props.voteData.error.code === 422){
+	    				console.log('==========dispatching get votes due to vote already');
+	    				this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    			}
+	    		}
+	    		else{
+	    			console.log('==========dispatching get votes');
+	    			this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    		}
+	    	
 	    }
-	    else if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult !== null && !this.props.voteData.error){
+	    else if(this.props.billData.bills.length > 0 && !this.props.voteData.loading && this.props.voteData.voteResult !== null){
 	    	try{
-	    		if(this.props.voteData.voteResult.message === 'Voted'){
+	    		if(this.props.voteData.error){
+	    			if(this.props.voteData.error.code === 422){
+	    				console.log('dispatch due to vote already')
+	    				this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    			}
+	    		}
+	    		else if(this.props.voteData.voteResult.message === 'Voted'){
 	    			console.log('==========dispatching get votes after voting');
 	    			this.props.dispatch(bulkGetVotes(this.props.billData.bills));
 	    		}

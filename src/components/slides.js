@@ -24,7 +24,7 @@ export class Slides extends React.Component{
 		if(this.props.billData && this.props.voteData.voteResult){
 			try{
 				if(this.props.voteData.voteResult.message !== 'Voted'){
-					console.log('not voted');
+					console.log('not voted',this.props.voteData);
 					slides = this.renderSlides(this.props.billData.bills);
 				}
 			}
