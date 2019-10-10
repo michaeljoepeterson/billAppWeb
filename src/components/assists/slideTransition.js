@@ -42,7 +42,7 @@ export default class SlideTransition{
 
 	transitionLeft(){
 		if(this.activeSlide === 0 || this.isClickedLeft){
-			return;
+			return false;
 		}
 		else{
 			const width = this.getWidth() + 'px';
@@ -51,14 +51,17 @@ export default class SlideTransition{
 			return this.moveSlide(this.slides[this.activeSlide],width,0)
 
 			.then(()=>{
+				
 				this.slides[this.activeSlide].classList.remove('active-slide');
 				this.activeSlide--;
+				console.log('moved left',this.activeSlide);
 				this.slides[this.activeSlide].classList.add('active-slide');
-				//console.log('moved left');
+				
 				return this.moveSlide(this.slides[this.activeSlide],0,this.transitionTime)
 			})
 			.then(()=>{
 				this.isClickedLeft = false;
+				return true;
 			})
 
 
@@ -71,7 +74,7 @@ export default class SlideTransition{
 
 	transitionRight(){
 		if(this.activeSlide === this.slides.length - 1 || this.isClickedRight){
-			return;
+			return false;
 		}
 		else{
 			this.isClickedRight = true;
@@ -79,16 +82,17 @@ export default class SlideTransition{
 			return this.moveSlide(this.slides[this.activeSlide],width,0)
 
 			.then(()=>{
+				
 				this.slides[this.activeSlide].classList.remove('active-slide');
 				this.activeSlide++;
+				console.log('moved right',this.activeSlide);
 				this.slides[this.activeSlide].classList.add('active-slide');
-				//console.log('moved left');
-
 				return this.moveSlide(this.slides[this.activeSlide],0,this.transitionTime)
 			})
 
 			.then(()=>{
 				this.isClickedRight = false;
+				return true;
 			})
 
 			.catch(err => {

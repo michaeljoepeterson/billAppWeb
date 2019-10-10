@@ -8,7 +8,7 @@ export class Slides extends React.Component{
 			let slideComponents = [];
 			for(let i = 0;i < bills.length;i++){
 				let isFirstSlide = false;
-				if(i === 0){
+				if(i === this.props.activeSlide){
 					isFirstSlide = true;
 				}
 				slideComponents.push(<Slide key={i} bill={bills[i]} slideWidth={this.props.slideWidth} firstSlide={isFirstSlide} billId={i} vote={this.props.voteData.voteResult[i]}/>);

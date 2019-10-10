@@ -3,26 +3,25 @@ import arrow from '../assets/arrow.png';
 import "../styles/arrow.css";
 
 //position left/right should be slideshow margin - image width / 2
-//will need a window change event listener
-export default class Arrow extends React.Component{
+export default function Arrow (props){
 
-	render(){
+	//render(){
 		//console.log('arrow margin: ',this.props.margin);
 		let arrowStyle = {
-			top:this.props.slideHeight
+			top:props.slideHeight
 		};
-		let rightClass = this.props.right ? 'arrowRight' : '';
-		let arrowId = this.props.right ? 'rightArrow' : 'leftArrow';
+		let rightClass = props.right ? 'arrowRight' : '';
+		let arrowId = props.right ? 'rightArrow' : 'leftArrow';
 		if(rightClass !== ''){
-			arrowStyle.right = this.props.margin;
+			arrowStyle.right = props.margin;
 		}
 		else{
-			arrowStyle.left = this.props.margin;
+			arrowStyle.left = props.margin;
 		}
 		return(
 			<div>
-				<img id={arrowId} style={arrowStyle} className={"arrow " + rightClass} onClick={(e) => this.props.arrowClicked(e,this.props.slideId)} src={arrow} alt='arrow button'/>
+				<img id={arrowId} style={arrowStyle} className={"arrow " + rightClass} onClick={(e) => props.arrowClicked(e,props.slideId)} src={arrow} alt='arrow button'/>
 			</div>
 		);
-	}
+	//}
 }

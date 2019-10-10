@@ -18,8 +18,10 @@ export class App extends React.Component{
 		this.slideHandler = null;
 		this.state = {
 			slideHeight:"",
-			slideWidth:''
+			slideWidth:'',
+			activeSlide:0
 		};
+		//this.activeSlide = 0;
 	}
 	componentDidMount(){
 	    this.props.dispatch(getBills(10));
@@ -35,17 +37,30 @@ export class App extends React.Component{
 	}
 
 	rightArrow(event,slideId){
-		let slideshow = document.getElementById(slideId);
+		//let slideshow = document.getElementById(slideId);
 		//console.log("right clicked",slideId);
 		//console.log(slideshow);
-		this.slideHandler.transitionRight();
+		const slideMoved = this.slideHandler.transitionRight();
+		if(slideMoved){
+			const newSlide = this.state.activeSlide + 1;
+			this.setState({
+				activeSlide:newSlide
+			});
+		}
 	}
 
 	leftArrow(event,slideId){
-		let slideshow = document.getElementById(slideId);
+		//let slideshow = document.getElementById(slideId);
 		//console.log("left clicked",slideId,this.slideHandler);
 		//console.log(slideshow);
-		this.slideHandler.transitionLeft();
+		const slideMoved =this.slideHandler.transitionLeft();
+
+		if(slideMoved){
+			const newSlide = this.state.activeSlide + 1;
+			this.setState({
+				activeSlide:newSlide
+			});
+		}
 	}
 
 	getSlideHeight(){
@@ -89,9 +104,13 @@ export class App extends React.Component{
 	}
 
 	render(){
+		/*
 		if(this.slideHandler){
-			this.slideHandler.setSlide(0);
+			//this.slideHandler.setSlide(this.state.activeSlide);
+			console.log('active slide in render: ',this.state.activeSlide);
 		}
+		*/
+		console.log('active slide in render: ',this.state.activeSlide);
 		let loader;
 		window.addEventListener("resize", this.arrowReposition.bind(this));
 		console.log('bill data ',this.props.billData);
@@ -104,11 +123,13 @@ export class App extends React.Component{
 	    			if(this.props.voteData.error.code === 422){
 	    				console.log('==========dispatching get votes due to vote already');
 	    				this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    				this.slideHandler.setSlide(this.state.activeSlide);
 	    			}
 	    		}
 	    		else{
 	    			console.log('==========dispatching get votes');
 	    			this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    			this.slideHandler.setSlide(this.state.activeSlide);
 	    		}
 	    	
 	    }
@@ -118,11 +139,13 @@ export class App extends React.Component{
 	    			if(this.props.voteData.error.code === 422){
 	    				console.log('dispatch due to vote already')
 	    				this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    				this.slideHandler.setSlide(this.state.activeSlide);
 	    			}
 	    		}
 	    		else if(this.props.voteData.voteResult.message === 'Voted'){
 	    			console.log('==========dispatching get votes after voting');
 	    			this.props.dispatch(bulkGetVotes(this.props.billData.bills));
+	    			this.slideHandler.setSlide(this.state.activeSlide);
 	    		}
 	    	}
 	    	catch(err){
@@ -130,17 +153,12 @@ export class App extends React.Component{
 	    	}
 	    	
 	    }
-	    /*
-	    else if(this.props.voteData.message !== 'successful vote' && !this.props.voteData.loading && this.props.voteData.voteResult === null && !this.props.voteData.error){
-	    	console.log('==========dispatching get votes after vote');
-	    	this.props.dispatch(bulkGetVotes(this.props.billData.bills));
-	    }
-	    */
+
 		return(
 			<div>
 				{loader}
 				<Arrow margin={this.arrowMargin} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.leftArrow.bind(this)}/>
-				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition} voteData={this.props.voteData}/>
+				<Slideshow slideId={this.slideId} billData={this.props.billData} slideTransition={this.slideTransition} voteData={this.props.voteData} activeSlide={this.state.activeSlide}/>
 				<Arrow margin={this.arrowMargin} right={true} slideHeight={this.state.slideHeight} slideId={this.slideId} arrowClicked={this.rightArrow.bind(this)}/>
 			</div>
 		);
